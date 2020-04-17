@@ -7,18 +7,32 @@ function drawTable(){
         typeObject[element.id] = {type:element.type,name:element.name}
     });
     var tdArr = document.getElementById('tablebox').firstElementChild;
+    let totalSum = 0;
     for (let i = 0; i < billData.length; i++) {
         var tr = document.createElement("tr");
-        console.log(billData[i])
-        let typeTemp = billData[i].type === "1"?"收入":"支出" ;
+        let typeTemp = "";
+        let numberTemp = (Number(billData[i].amount)).toFixed(2);
+
+        if(billData[i].type === "1"){
+            typeTemp = "收入";
+            totalSum += Number(numberTemp);
+        }else{
+            typeTemp = "支出";
+            totalSum -= Number(numberTemp);
+        }
+        
         let dateTemp = new Date(Number(billData[i].time)).toLocaleString();
         // type,time,category,amount
         tr.innerHTML += '<td>' + typeTemp + '</td>';
         tr.innerHTML += '<td>' + dateTemp + '</td>';
         tr.innerHTML += '<td>' + typeObject[billData[i].category].name + "(" + typeTemp + ')</td>';
-        tr.innerHTML += '<td>' + (Number(billData[i].amount)).toFixed(2) + '</td>';
-        tdArr.appendChild(tr)
+        tr.innerHTML += '<td>' + numberTemp + '</td>';
+        tdArr.appendChild(tr);
     }
-
-    document.createElement("tr");
+    var tr = document.createElement("tr");
+    tr.innerHTML += '<td>总金额</td>';
+    tr.innerHTML += '<td></td>';
+    tr.innerHTML += '<td></td>';
+    tr.innerHTML += '<td>' + totalSum + '</td>';
+    tdArr.appendChild(tr);
 }
