@@ -54,7 +54,7 @@ router.post('/addBill', (req, res) => {
     res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
     res.header('Access-Control-Allow-Headers', 'Content-Type');
-    res.send("添加成功");
+    res.send("添加成功<a href='http://127.0.0.1:3000'>点击跳转</a>");
 });
 
 module.exports = router;
