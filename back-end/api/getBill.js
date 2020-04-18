@@ -4,13 +4,14 @@ var router = express.Router();
 var querystring = require('querystring');
 var fs = require('fs')
 
+
+
 //获取账单数据
 router.get('/getBillData', (req, res) => {
     let data = {};
     Converter()
         .fromFile("bill.csv")
         .then((jsonObj) => {
-            console.log(jsonObj);
             jsonObj = JSON.stringify(jsonObj)
             res.header("Access-Control-Allow-Origin", "*");
             res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
@@ -42,11 +43,9 @@ router.post('/addBill', (req, res) => {
     let body = ""
     req.on('data', function (chunk) {
         body += chunk;  //一定要使用+=，如果body=chunk，因为请求favicon.ico，body会等于{}
-        console.log("chunk:",chunk);
     });
     req.on('end', function () {
         body = querystring.parse(body);  //将一个字符串反序列化为一个对象
-        console.log("body:",body);
         fs.appendFile('bill.csv','\r\n' + body.type + ',' + Date.parse(body.date) + ',' + body.category + "," +body.number, function (error) {
         });
     });
