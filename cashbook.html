@@ -1,33 +1,80 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
-        <title>简易小账单</title>
-        <meta name="author" content="ZZHoliday" />
-        <meta name="description" content="simple cashbook" />
-        <meta charset="UTF-8" />
-        
-        <script src="loadType.js"></script>
-        <script src="loadData.js"></script>
-        <script src="drawTable.js"></script>
-    </head>
-    <body>
-        <h1>简易小账单</h1>
+
+<head>
+    <title>简易小账单</title>
+    <meta name="author" content="ZZHoliday" />
+    <meta name="description" content="simple cashbook" />
+    <meta charset="UTF-8" />
+
+    <script src="loadType.js"></script>
+    <script src="loadData.js"></script>
+    <script src="drawTable.js"></script>
+
+    <script src="queryForm.js"></script>
+</head>
+
+<body>
+    <h1>简易小账单</h1>
+    <div style="display: flex;justify-content:space-around;">
         <div>
-            账单查询项
+            <h1>添加账单</h1>
+            <form name="addForm" method="post" action="http://127.0.0.1:3000/api/addBill">
+                <div>
+                    账单类型
+                    <select name="type" onselect="typeChange()" required>
+                        <option value="0"> 支出 </option>
+                        <option value="1"> 收入 </option>
+                    </select>
+                </div>
+                <div>
+                    账单时间
+                    <input type="date" name="date" onselect="dateChange()" required>
+                    </input>
+                </div>
+                <div>
+                    账单分类
+                    <select id="category1" name="category" onselect="categoryChange()" required>
+                        <option value=""> </option>
+                    </select>
+                </div>
+                <div>
+                    账单金额
+                    <input type="number" name="number" onselect="dateChange()" required>
+                </div>
+                
+                <button type="submit">添加账单</button>
+            </form>
         </div>
         <div>
-            添加账单
+            <form name="queryForm">
+                <select name="type">
+                    <option value=""> </option>
+                    <option value="0"> 支出 </option>
+                    <option value="1"> 收入 </option>
+                </select>
+                <select id="category" name="category">
+                    <option value=""> </option>
+                </select>
+                <input type="month" id="month" name="date">
+                </input>
+                <button type="button" onclick="queryBill()">查询</button>
+            </form>
+            <div>
+                <!-- 账单展示 -->
+                <table id="tablebox">
+                    <tr>
+                        <th>账单类型</th>
+                        <th>账单时间</th>
+                        <th>账单分类</th>
+                        <th>账单金额</th>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <div>
-            <!-- 账单展示 -->
-            <table id="tablebox">
-                <tr>
-                    <th>账单类型</th>
-                    <th>账单时间</th>
-                    <th>账单分类</th>
-                    <th>账单金额</th>
-                </tr>
-            </table>
-        </div>
-    </body>
+    </div>
+
+
+</body>
+
 </html>
